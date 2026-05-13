@@ -1,0 +1,71 @@
+site_name: PDI - Processamento Digital de Imagens
+site_description: Resumos para prova de PDI organizados por seção
+docs_dir: docs
+
+theme:
+  name: material
+  language: pt
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Modo escuro
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Modo claro
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Início: index.md
+  - Seção 2:
+      - "2.4 - Amostragem e Quantização": section-2/2_4-section.md
+  - Seção 3:
+      - "3 - Visão Geral": section-3/3-section.md
+      - "3.1": section-3/3_1-section.md
+      - "3.2": section-3/3_2-section.md
+      - "3.3": section-3/3_3-section.md
+      - "3.4": section-3/3_4-section.md
+      - "3.5": section-3/3_5-section.md
+      - "3.6": section-3/3_6-section.md
+      - "3.7": section-3/3_7-section.md
+  - Seção 4:
+      - "4.1": section-4/4_1-section.md
+      - "4.7": section-4/4_7-section.md
+      - "4.8": section-4/4_8-section.md
+      - "4.9": section-4/4_9-section.md
+      - "4.10": section-4/4_10-section.md
+  - Seção 5:
+      - "5.3": section-5/5_3-section.md
+      - "5.4": section-5/5_4-section.md
+  - Seção 9:
+      - "9 - Visão Geral": section-9/9-section.md
+      - "9.1": section-9/9_1-section.md
+      - "9.2": section-9/9_2-section.md
+      - "9.3": section-9/9_3-section.md
