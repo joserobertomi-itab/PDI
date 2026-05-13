@@ -29,15 +29,15 @@ Roteiro do que já foi mapeado para resumo e do que ainda falta organizar.
 
 ## Capítulo 5
 
-- [ ] 5.3
-- [ ] 5.4
+- [x] 5.3
+- [x] 5.4
 
 ## Capítulo 9
 
-- [ ] 9.0 - Seção principal
-- [ ] 9.1
-- [ ] 9.2
-- [ ] 9.3
+- [x] 9.0 - Seção principal
+- [x] 9.1
+- [x] 9.2
+- [x] 9.3
 
 ## Próximo Passo
 
