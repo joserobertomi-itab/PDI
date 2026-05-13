@@ -20,11 +20,12 @@ Roteiro do que já foi mapeado para resumo e do que ainda falta organizar.
 
 ## Capítulo 4
 
-- [ ] 4.1
-- [ ] 4.7
-- [ ] 4.8
-- [ ] 4.9
-- [ ] 4.10
+- [x] 4.0 - Seção principal
+- [x] 4.1
+- [x] 4.7
+- [x] 4.8
+- [x] 4.9
+- [x] 4.10
 
 ## Capítulo 5
 

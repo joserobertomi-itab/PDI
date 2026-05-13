@@ -20,6 +20,7 @@ Este repositório será usado para montar resumos em tópicos sobre Processament
 - [Seção 3.5](section-3/3_5-section.md)
 - [Seção 3.6](section-3/3_6-section.md)
 - [Seção 3.7](section-3/3_7-section.md)
+- [Seção 4](section-4/4-section.md)
 - [Seção 4.1](section-4/4_1-section.md)
 - [Seção 4.7](section-4/4_7-section.md)
 - [Seção 4.8](section-4/4_8-section.md)
