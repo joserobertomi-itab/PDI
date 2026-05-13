@@ -15,8 +15,8 @@ Roteiro do que já foi mapeado para resumo e do que ainda falta organizar.
 - [x] 3.3
 - [x] 3.4
 - [x] 3.5
-- [ ] 3.6 - iniciado
-- [ ] 3.7
+- [x] 3.6
+- [x] 3.7
 
 ## Capítulo 4
 
