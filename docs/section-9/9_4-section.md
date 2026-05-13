@@ -60,6 +60,32 @@ A hit B = (A ⊖ B1) - (A ⊕ B2_hat)
 7. Intersecte os resultados.
 ```
 
+## Exemplo Mental
+
+Para detectar uma extremidade de linha:
+
+```text
+B1: exige o pixel central e um vizinho de linha.
+B2: exige fundo nos pixels que provariam continuação da linha.
+X: marca posições que não importam.
+```
+
+- Rotacionar o par `(B1,B2)` permite detectar extremidades em outras orientações.
+- Essa é a lógica usada em afinamento, poda e vários detectores de padrões morfológicos.
+
+## Diferença Entre Erosão E Hit-Or-Miss
+
+| Operação | Exige objeto? | Exige fundo? | Uso |
+|---|---:|---:|---|
+| Erosão | Sim | Não | testar se uma forma cabe no objeto |
+| Hit-or-miss | Sim | Sim | detectar configuração local específica |
+
+## Cuidados
+
+- `B1` e `B2` não podem exigir coisas contraditórias na mesma posição.
+- Pixels "não importa" não entram em `B1` nem em `B2`.
+- Se o padrão pode aparecer rotacionado, é preciso usar uma sequência de elementos estruturantes rotacionados.
+
 ## Pontos De Prova
 
 - Escrever a fórmula `(A ⊖ B1) intersect (A^c ⊖ B2)`.

@@ -18,6 +18,17 @@ Páginas usadas: livro 437-453, PDF 455-471.
   - planos: todos os valores têm mesma altura;
   - não planos: possuem valores de intensidade próprios.
 
+## Tradução Binário Para Cinza
+
+| Ideia binária | Versão em níveis de cinza |
+|---|---|
+| Objeto cabe no ES | mínimo local preserva intensidades baixas |
+| ES toca objeto | máximo local propaga intensidades altas |
+| Erosão contrai objeto claro | erosão reduz picos claros |
+| Dilatação expande objeto claro | dilatação expande picos claros |
+| Abertura remove objetos claros pequenos | abertura corta picos claros estreitos |
+| Fechamento preenche buracos escuros | fechamento preenche vales escuros estreitos |
+
 ## 9.6.1 Erosão E Dilatação
 
 ### Erosão Com ES Plano
@@ -133,6 +144,13 @@ suavizacao = fechamento(abertura(f))
 - Usar ES maior remove estruturas maiores, mas pode borrar mais.
 - Filtragem sequencial alternada repete abertura/fechamento com resultados intermediários.
 
+Decisão prática:
+
+- Comece com abertura se o ruído principal for claro.
+- Comece com fechamento se o ruído principal for escuro.
+- Use sequência abertura-fechamento para remover ambos.
+- Aumente o ES apenas até remover o ruído; depois disso você começa a remover estrutura útil.
+
 ### Gradiente Morfológico
 
 ```text
@@ -162,6 +180,21 @@ B_hat(f) = (f . b) - f
 
 - Destaca objetos escuros menores que o ES.
 - É o análogo do top-hat para estruturas escuras.
+
+## Top-Hat Como Correção De Fundo
+
+Para objetos claros sobre fundo lentamente variável:
+
+```text
+fundo_estimado = f o b
+imagem_corrigida = f - fundo_estimado
+```
+
+O ES deve ser:
+
+- maior que os objetos que devem ser removidos na abertura;
+- grande o suficiente para seguir o fundo;
+- pequeno o bastante para não apagar variações relevantes de iluminação.
 
 ### Granulometria
 
@@ -200,6 +233,13 @@ Use:
 - marcador `f`;
 - máscara `g`;
 - condição `f <= g`.
+
+## Por Que Usar Reconstrução Em Cinza
+
+- A abertura comum pode alterar a forma e a intensidade de objetos sobreviventes.
+- A abertura por reconstrução remove o que foi eliminado pela erosão inicial, mas reconstrói com base na máscara original.
+- Isso preserva melhor contornos e níveis dos objetos que ficaram marcados.
+- Em fundos complexos, top-hat por reconstrução costuma produzir resultado mais limpo que top-hat comum.
 
 ### Dilatação Geodésica
 
@@ -291,6 +331,19 @@ top_hat_reconstrucao = f - O_R^n(f)
 | Top-hat | `f - abertura` | destaca objetos claros |
 | Bottom-hat | `fechamento - f` | destaca objetos escuros |
 | Abertura por reconstrução | erosão + reconstrução | remove objetos pequenos preservando forma dos sobreviventes |
+
+## Guia De Escolha Em Cinza
+
+| Problema | Operação |
+|---|---|
+| Pontos claros pequenos | Abertura |
+| Pontos escuros pequenos | Fechamento |
+| Bordas fortes | Gradiente morfológico |
+| Fundo não uniforme com objetos claros | Top-hat ou top-hat por reconstrução |
+| Fundo não uniforme com objetos escuros | Bottom-hat |
+| Distribuição de tamanhos | Granulometria |
+| Separar regiões por textura/tamanho | Fechamento/abertura + gradiente |
+| Preservar forma após filtragem | Reconstrução morfológica |
 
 ## Pontos De Prova
 

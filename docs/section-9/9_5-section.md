@@ -8,6 +8,20 @@ Páginas usadas: livro 424-437, PDF 442-455.
 - A seção apresenta algoritmos para fronteiras, buracos, componentes conexos, fecho convexo, afinamento, espessamento, esqueleto, poda e reconstrução.
 - O padrão recorrente é aplicar uma operação iterativa e limitar seu crescimento por uma máscara.
 
+## Padrão Recorrente Dos Algoritmos
+
+Muitos algoritmos desta seção seguem a mesma ideia:
+
+```text
+novo = operação(corrente) limitada_por_máscara
+repita até novo = corrente
+```
+
+- Em preenchimento de buracos, o marcador cresce dentro de `A^c`.
+- Em componentes conexos, o marcador cresce dentro de `A`.
+- Em reconstrução, o marcador cresce ou diminui sem ultrapassar a máscara.
+- A estabilidade é a condição de parada.
+
 ## 9.5.1 Extração De Fronteiras
 
 ```text
@@ -18,6 +32,12 @@ beta(A) = A - (A ⊖ B)
 - A erosão remove a borda do objeto.
 - A diferença entre o objeto original e o objeto erodido deixa apenas a fronteira.
 - ES maior gera fronteira mais espessa.
+
+Leitura operacional:
+
+```text
+fronteira = objeto original - interior preservado pela erosão
+```
 
 ## 9.5.2 Preenchimento De Buracos
 
@@ -48,6 +68,12 @@ Interpretação:
 - A interseção com `A^c` impede a expansão de atravessar a fronteira do objeto.
 - É uma dilatação condicional.
 
+Falhas típicas:
+
+- Se o ponto inicial estiver na fronteira, o crescimento pode não representar o buraco.
+- Se o ponto inicial estiver fora do objeto, o algoritmo cresce pelo fundo externo.
+- Se a fronteira não estiver fechada, o marcador pode vazar.
+
 ## 9.5.3 Extração De Componentes Conexos
 
 Com um ponto inicial conhecido em cada componente:
@@ -67,6 +93,17 @@ X_k = X_{k-1}
 - O ES define a conectividade:
   - cruz: conectividade-4;
   - matriz `3 x 3` de 1s: conectividade-8.
+
+Roteiro automatizado quando os marcadores não são conhecidos:
+
+```text
+1. Encontre um pixel de A ainda não rotulado.
+2. Use esse pixel como X_0.
+3. Aplique X_k = (X_{k-1} ⊕ B) intersect A até estabilidade.
+4. Rotule o componente encontrado.
+5. Remova/ignore esse componente de A.
+6. Repita até não sobrar pixel de frente sem rótulo.
+```
 
 ## 9.5.4 Fecho Convexo
 
@@ -98,6 +135,13 @@ C(A) = union_{i=1}^{4} D_i
 
 - Os `B_i` são elementos estruturantes direcionais.
 - O crescimento pode ultrapassar o fecho convexo mínimo; por isso pode ser necessário limitar por dimensões máximas do objeto.
+
+Uso prático:
+
+- Descrição de forma.
+- Medida de deficiência convexa.
+- Identificação de concavidades.
+- Comparação entre objeto real e seu menor invólucro convexo.
 
 ## 9.5.5 Afinamento
 
@@ -174,6 +218,12 @@ Interpretação:
 - A diferença deixa pontos do esqueleto daquele nível.
 - O esqueleto morfológico nem sempre é conectado ou com um pixel de espessura.
 
+Diferença importante:
+
+- Esqueleto morfológico é uma formulação por erosões e aberturas.
+- Esqueleto "bom" para reconhecimento muitas vezes precisa ser conectado, fino e estável.
+- Por isso, esqueletização prática costuma precisar de poda e pós-processamento.
+
 ## 9.5.8 Poda
 
 - Afinamento e esqueletização podem gerar ramos parasitas.
@@ -208,6 +258,20 @@ Reconstrução usa:
 - marcador `F`: pontos de partida.
 - máscara `G`: limite da transformação.
 - ES `B`: define conectividade.
+
+## Marcador Versus Máscara
+
+| Papel | O que faz |
+|---|---|
+| Marcador `F` | indica onde a reconstrução começa |
+| Máscara `G` | limita onde a reconstrução pode chegar |
+| ES `B` | define quais vizinhos são alcançáveis |
+
+Regra mental:
+
+```text
+o marcador tenta crescer; a máscara decide até onde ele pode crescer
+```
 
 ### Dilatação Geodésica Binária
 
@@ -302,6 +366,19 @@ X = I - R_I^D(F)
 ```
 
 - Remove objetos que tocam a borda da imagem.
+
+## Como Escolher Entre Algoritmos
+
+| Se você precisa... | Use |
+|---|---|
+| apenas borda do objeto | extração de fronteiras |
+| preencher regiões internas escuras | preenchimento de buracos |
+| contar ou medir objetos separados | componentes conexos |
+| medir concavidade | fecho convexo e deficiência convexa |
+| reduzir objeto à estrutura central | esqueleto ou afinamento |
+| limpar ramos pequenos | poda |
+| preservar forma após remover objetos pequenos | reconstrução |
+| remover objetos tocando a borda | limpeza por reconstrução |
 
 ## Tabela De Algoritmos
 

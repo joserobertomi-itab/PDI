@@ -75,6 +75,48 @@ Interpretação:
 | Erosão | `B` cabe inteiro em `A` | Contrai, afina, remove detalhes pequenos |
 | Dilatação | `B_hat` toca `A` | Expande, engrossa, fecha lacunas |
 
+## Receita De Implementação
+
+Erosão binária:
+
+```text
+para cada pixel z:
+  posicione a origem de B em z
+  se todos os 1s de B coincidirem com 1s de A:
+    saída(z) = 1
+  senão:
+    saída(z) = 0
+```
+
+Dilatação binária:
+
+```text
+para cada pixel z:
+  posicione a origem de B_hat em z
+  se algum 1 de B_hat coincidir com um 1 de A:
+    saída(z) = 1
+  senão:
+    saída(z) = 0
+```
+
+## Como Escolher O Elemento Estruturante
+
+| ES | Efeito típico |
+|---|---|
+| Quadrado | trata direções horizontal, vertical e diagonal de modo uniforme aproximado |
+| Cruz | preserva conectividade-4 e evita algumas conexões diagonais |
+| Linha horizontal | remove/preserva estruturas conforme orientação horizontal |
+| Linha vertical | remove/preserva estruturas conforme orientação vertical |
+| Disco | suavização morfológica mais isotrópica |
+| ES alongado | efeito direcional controlado |
+
+## Intuição De Tamanho
+
+- Se o ES não cabe dentro de uma estrutura, a erosão remove essa estrutura.
+- Se uma lacuna é menor que o alcance do ES, a dilatação pode fechá-la.
+- Aumentar o ES aumenta o efeito, mas também aumenta perda de detalhe.
+- Em prova, sempre compare o tamanho da estrutura com o tamanho do ES.
+
 ## Pontos De Prova
 
 - Escrever as definições de erosão e dilatação.

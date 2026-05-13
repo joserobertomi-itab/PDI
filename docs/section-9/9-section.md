@@ -17,6 +17,23 @@ Páginas usadas: livro 415-453, PDF 433-471.
 - A resposta depende de encaixe, interseção, complemento e conectividade.
 - O formato e o tamanho de `B` controlam o efeito da operação.
 
+## Convenção De Notação
+
+| Notação | Leitura |
+|---|---|
+| `A` | conjunto de pixels do objeto |
+| `A^c` | complemento de `A`, normalmente o fundo |
+| `B` | elemento estruturante |
+| `B_hat` | reflexão de `B` |
+| `(B)_z` | translação de `B` para a posição `z` |
+| `⊖` | erosão |
+| `⊕` | dilatação |
+| `o` | abertura |
+| `.` | fechamento |
+| `hit` | transformada hit-or-miss |
+| `F` | marcador em reconstrução morfológica |
+| `G` | máscara em reconstrução morfológica |
+
 ## Mapa Das Subseções
 
 - [9.1](9_1-section.md): definições básicas, reflexão, translação e elementos estruturantes.
@@ -83,6 +100,25 @@ beta(A) = A - (A ⊖ B)
 - Abertura e fechamento são compostas e idempotentes.
 - Reconstrução morfológica usa duas imagens: marcador e máscara.
 - Em níveis de cinza, erosão vira mínimo local e dilatação vira máximo local quando o ES é plano.
+
+## Checklist Senior Para Resolver Questões
+
+1. Identifique se a imagem é binária ou em níveis de cinza.
+2. Identifique se o alvo é objeto claro, objeto escuro, fundo, borda, buraco ou textura.
+3. Escolha o ES pelo tamanho e formato da estrutura que deve sobreviver ou ser removida.
+4. Decida se a operação deve remover, crescer, conectar, destacar ou reconstruir.
+5. Verifique se a conectividade esperada é 4 ou 8.
+6. Se houver iteração, defina a máscara e a condição de parada.
+7. Depois da operação, interprete o resultado como conjunto: o que foi removido, adicionado ou preservado?
+
+## Erros Que Mais Custam Pontos
+
+- Tratar morfologia como convolução linear. A analogia ajuda na varredura, mas as operações são de conjuntos, mínimos e máximos.
+- Escolher um ES sem justificar tamanho, forma e origem.
+- Confundir abertura com erosão simples. Abertura erode e depois dilata, mas não restaura tudo.
+- Confundir fechamento com dilatação simples. Fechamento dilata e depois erode.
+- Esquecer que reconstrução usa marcador e máscara; não é uma operação de uma única imagem.
+- Em níveis de cinza, esquecer que ES plano transforma erosão em mínimo local e dilatação em máximo local.
 
 ## Pontos De Prova
 

@@ -83,6 +83,29 @@ se C subset D, então C . B subset D . B
 | Abertura | Saliências claras, pontes finas, ilhas pequenas | Fundo e objetos maiores que o ES |
 | Fechamento | Lacunas, buracos pequenos, quebras estreitas | Massa geral dos objetos |
 
+## Abertura/Fechamento Não São Inversas
+
+- Erosão seguida de dilatação não recupera necessariamente o objeto original.
+- Dilatação seguida de erosão também não recupera necessariamente o objeto original.
+- A informação removida por uma operação morfológica pode ser perdida.
+- A idempotência significa que repetir a mesma abertura ou fechamento não muda mais o resultado, não que a operação seja reversível.
+
+## Quando Usar Cada Uma
+
+| Problema | Operação | Justificativa |
+|---|---|---|
+| Pequenos objetos claros indesejados | Abertura | eles não acomodam o ES após erosão |
+| Pontes finas entre objetos | Abertura | o ES não cabe na ponte |
+| Pequenos buracos dentro de objetos | Fechamento | a dilatação cobre o buraco e a erosão refina |
+| Quebras estreitas em caracteres | Fechamento ou dilatação | une descontinuidades |
+| Contorno serrilhado | Abertura/fechamento com ES pequeno | suaviza saliências e reentrâncias |
+
+## Relação Com Reconstrução
+
+- A abertura comum pode deformar objetos que sobreviveram à erosão.
+- A abertura por reconstrução remove componentes pequenos, mas preserva melhor a forma dos componentes sobreviventes.
+- O mesmo raciocínio vale para fechamento comum versus fechamento por reconstrução.
+
 ## Pontos De Prova
 
 - Escrever abertura e fechamento como composições.
